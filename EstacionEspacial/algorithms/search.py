@@ -80,8 +80,35 @@ def uniformCostSearch(problem: SearchProblem):
     Search the node of least total cost first.
     """
 
-    # TODO: Add your code here
-    utils.raiseNotDefined()
+    inicial = problem.getStartState()
+    
+    frontera = utils.PriorityQueue()
+    
+    frontera.push((inicial, [], 0), 0)
+    
+    alcanzados  = {inicial : 0}
+    expandidos = []
+    
+    while not frontera.isEmpty():
+        estado, camino, costo = frontera.pop()
+        if problem.isGoalState(estado):
+            return camino
+        if estado not in expandidos:
+            expandidos.append(estado)
+            sucesores = problem.getSuccessors(estado)
+            for sucesor, accion, costo_accion in sucesores:
+                nuevo_costo= costo_accion+costo
+                nuevo_camino= camino + [accion]
+                if sucesor not in alcanzados  or nuevo_costo < alcanzados[sucesor]:
+                    alcanzados[sucesor]= nuevo_costo
+                    frontera.push((sucesor, nuevo_camino, nuevo_costo), nuevo_costo)
+    return []
+            
+
+                
+        
+    
+    
 
 
 def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
