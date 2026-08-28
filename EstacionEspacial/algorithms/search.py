@@ -115,10 +115,32 @@ def aStarSearch(problem: SearchProblem, heuristic=nullHeuristic):
     """
     Search the node that has the lowest combined cost and heuristic first.
     """
-    # TODO: Add your code here
-    utils.raiseNotDefined()
+    
+    
+    inicial = problem.getStartState()
 
+    frontera = utils.PriorityQueue()
+    frontera.push((inicial, [], 0), heuristic(inicial, problem))
 
+    mejor_costo = {inicial: 0}
+
+    while not frontera.isEmpty():
+        estado, camino, costo = frontera.pop()
+
+        if costo == mejor_costo.get(estado):
+            if problem.isGoalState(estado):
+                return camino
+
+            for sucesor, accion, costo_accion in problem.getSuccessors(estado):
+                nuevo_costo = costo + costo_accion
+
+                if sucesor not in mejor_costo or nuevo_costo < mejor_costo[sucesor]:
+                    mejor_costo[sucesor] = nuevo_costo
+                    nuevo_camino = camino + [accion]
+                    prioridad = nuevo_costo + heuristic(sucesor, problem)
+                    frontera.push((sucesor, nuevo_camino, nuevo_costo), prioridad)
+
+    return []
 # Abbreviations (you can use them for the -f option in main.py)
 bfs = breadthFirstSearch
 dfs = depthFirstSearch
