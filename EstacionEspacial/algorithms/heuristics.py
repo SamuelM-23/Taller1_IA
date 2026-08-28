@@ -37,27 +37,18 @@ def manhattanHeuristic(state, problem):
     posicion, tieneKit, sistemasPendientes = state
 
     if not tieneKit:
-        return _distanciaManhattan(
-            posicion,
-            problem.kitPosition
-        )
+        return _distanciaManhattan(posicion, problem.kitPosition)
 
     if len(sistemasPendientes) > 0:
         distancias = []
 
         for sistema in sistemasPendientes:
-            distancia = _distanciaManhattan(
-                posicion,
-                sistema
-            )
+            distancia = _distanciaManhattan(posicion,sistema)
             distancias.append(distancia)
 
         return min(distancias)
 
-    return _distanciaManhattan(
-        posicion,
-        problem.controlPosition
-    )
+    return _distanciaManhattan(posicion,problem.controlPosition)
 
 
 def euclideanHeuristic(state, problem):
@@ -73,27 +64,18 @@ def euclideanHeuristic(state, problem):
     posicion, tieneKit, sistemasPendientes = state
 
     if not tieneKit:
-        return _distanciaEuclidiana(
-            posicion,
-            problem.kitPosition
-        )
+        return _distanciaEuclidiana(posicion,problem.kitPosition)
 
     if len(sistemasPendientes) > 0:
         distancias = []
 
         for sistema in sistemasPendientes:
-            distancia = _distanciaEuclidiana(
-                posicion,
-                sistema
-            )
+            distancia = _distanciaEuclidiana(posicion,sistema)
             distancias.append(distancia)
 
         return min(distancias)
 
-    return _distanciaEuclidiana(
-        posicion,
-        problem.controlPosition
-    )
+    return _distanciaEuclidiana(posicion,problem.controlPosition)
 
 
 def _cotaInferiorMisionRestante(posicion,sistemasPendientes,posicionControl):
